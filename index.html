@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!--
+  NOTE: When deploying this page, the <title> tag must by set to one of
+  instance1, instance2, instance3, or instance4 and _should_ match the
+  short hostname of it's GCE instance. The page's background color will
+  be updated onload based on it's hostname via javascript code below,
+  lines 39-50.
+  -->
+  <title>SET TITLE TO MY GCE INSTANCE NAME</title>
+  <link rel="stylesheet" type="text/css" media="screen,print" href="/demo.css" />
+  <script type="text/javascript">
+    // Use a query param to pass along load-balancer IP since I can't seem to access
+    // it directly from the incoming HTTP request.
+    function getParameterByName( name ){
+      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+      var regexS = "[\\?&]"+name+"=([^&#]*)", 
+      regex = new RegExp( regexS ),
+      results = regex.exec( window.location.href );
+      if( results == null ){
+        return "";
+      } else{
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+    }
+    
+    // change background color depending on title and reload
+    function changeBgColor() {
+
+      var ip = getParameterByName('lbip');
+      var bounce = true;
+      
+      if (document.title == 'instance1') {
+        document.body.style.backgroundColor = "#4285F4"; // blue
+      } else if (document.title == 'instance2') {
+        document.body.style.backgroundColor = "#D84437"; // red
+      } else if (document.title == 'instance3') {
+        document.body.style.backgroundColor = "#F4B400"; // yellow
+      } else if (document.title == 'instance4') {
+        document.body.style.backgroundColor = "#0F9D58"; // green
+      } else {
+        document.body.style.backgroundColor = "white";
+        bounce = false;
+      }
+      // reload ourselves at the LB IP in 1/2 seconds
+      if (bounce && ip) {
+        setTimeout("window.location.href = 'http://"+ip+"/?lbip="+ip+"';", 500);
+      }
+    }
+  </script>
+</head>
+<body onload="changeBgColor()">
+  <div class="frameT">
+    <div class="frameTC">
+      <div class="content">
+        <h1><script>document.write(document.title);</script></h1>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
