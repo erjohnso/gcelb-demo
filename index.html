@@ -48,9 +48,9 @@
         document.body.style.backgroundColor = "white";
         bounce = false;
       }
-      // reload ourselves at the LB IP in 1/2 seconds
+      // reload ourselves at the LB IP in 2 seconds
       if (bounce && ip) {
-        setTimeout("window.location.href = 'http://"+ip+"/?lbip="+ip+"';", 500);
+        setTimeout("window.location.href = 'http://"+ip+"/?lbip="+ip+"';", 2000);
       }
     }
   </script>
