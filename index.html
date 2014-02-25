@@ -13,7 +13,7 @@
   be updated onload based on it's hostname via javascript code below,
   lines 39-50.
   -->
-  <title>SET TITLE TO MY GCE INSTANCE NAME</title>
+  <title>@MY_INSTANCE_NAME@</title>
   <link rel="stylesheet" type="text/css" media="screen,print" href="/demo.css" />
   <script type="text/javascript">
     // Use a query param to pass along load-balancer IP since I can't seem to access
@@ -36,13 +36,13 @@
       var ip = getParameterByName('lbip');
       var bounce = true;
       
-      if (document.title == 'instance1') {
+      if (document.title == 'myinstance1') {
         document.body.style.backgroundColor = "#4285F4"; // blue
-      } else if (document.title == 'instance2') {
+      } else if (document.title == 'myinstance2') {
         document.body.style.backgroundColor = "#D84437"; // red
-      } else if (document.title == 'instance3') {
+      } else if (document.title == 'myinstance3') {
         document.body.style.backgroundColor = "#F4B400"; // yellow
-      } else if (document.title == 'instance4') {
+      } else if (document.title == 'myinstance4') {
         document.body.style.backgroundColor = "#0F9D58"; // green
       } else {
         document.body.style.backgroundColor = "white";

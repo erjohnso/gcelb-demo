@@ -12,13 +12,22 @@ flip between the 4 instances (each with it's own Google primary color).
 
 For this demo to truly work dynamically, it is ideal for each `index.html`
 page's title be set to `<title>instance_shortname</title>`. If you use the
-actual shortnames of `instance{1..4}`, then the `if-else` javascript
+actual shortnames of `myinstance{1..4}`, then the `if-else` javascript
 statements do not need to be updated.
 
 As an example, during the SaltConf demo, when I dropped down the `index.html`
 file, I used `<title>{{ grains.id }}</title>` and as the file was being
 written to the instance, the jinja2 processing replace `{{ grains.id }}`
 with that instance's short hostname.
+
+The actual title-element for the `index.html` page is @MY_INSTANCE_NAME@
+and a sed command can be used to replace that with the local instance's
+short hostname. For example,
+
+```sh
+NAME=$(hostname -s)
+sed -i "s|@MY_INSTANCE_NAME@|$NAME|" /var/www/index.html
+```
 
 ### Install
 
