@@ -13,12 +13,12 @@ popd > /dev/null
 
 NAME=$(hostname -s)
 
-echo "=> Copying HTML files"
+echo "=> Copying HTML files, apache2.conf, and restarting service..."
 sudo cp $MY_PATH/demo.css /var/www
 sudo cp $MY_PATH/index.html /var/www
 sudo sed -i "s|@MY_INSTANCE_NAME@|$NAME|" /var/www/index.html
 sudo chmod 644 /var/www/*
-
-echo "=> Setting apache2.conf and restarting service"
 sudo cp $MY_PATH/apache2.conf /etc/apache2/apache2.conf
 sudo service apache2 restart
+
+exit 0
