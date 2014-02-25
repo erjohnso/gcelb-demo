@@ -6,6 +6,47 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #bbc3cb;
+      width: 100%;
+      height: 100%;
+      font: 14px Tahoma, Verdana, Arial, san-serif;
+    }
+
+    h1 {
+      font-size: 64px;
+      margin: 10px;
+    }
+
+    div.frameT {
+      width: 100%;
+      padding: 0;
+      display: table;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 0;
+    }
+
+    div.frameTC {
+      padding: 0;
+      vertical-align: middle;
+      display: table-cell;
+      margin: 0;
+    }
+
+    div.content {
+      width: 480px;
+      background-color: #fff;
+      margin: 0 auto;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
   <!--
   NOTE: When deploying this page, the title-tag must by set to one of
   instance1, instance2, instance3, or instance4 and _should_ match the
@@ -14,7 +55,6 @@
   lines 39-50.
   -->
   <title>@MY_INSTANCE_NAME@</title>
-  <link rel="stylesheet" type="text/css" media="screen,print" href="/demo.css" />
   <script type="text/javascript">
     // Use a query param to pass along load-balancer IP since I can't seem to access
     // it directly from the incoming HTTP request.
