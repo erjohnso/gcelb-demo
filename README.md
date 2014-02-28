@@ -5,10 +5,9 @@ customization for each demo, but I've used it with Puppet and SaltStack.
 
 General idea is to create 4 GCE `Debian-7` instances, install these files
 on each instance, put them behind a GCELB, and then hit the LB's public IP
-with your browser to test. Once that looks good, point your browser to,
-`http://a.b.c.d/?lbip=a.b.c.d` where `a.b.c.d` is the public IP of the GCELB.
-This will cause the page to be fetched again (without caching) and will
-flip between the 4 instances (each with it's own Google primary color).
+with your browser to test. The page to be fetched again (without caching)
+and will flip between the 4 instances (each with it's own Google primary
+color).
 
 For this demo to truly work dynamically, it is ideal for each `index.html`
 page's title be set to `<title>instance_shortname</title>`. If you use the
@@ -49,12 +48,9 @@ sed -i "s|@MY_INSTANCE_NAME@|$NAME|" /var/www/index.html
 
 1. Point your browser to `http://a.b.c.d` and you should see a page served
    from one of your instances.
-1. Next, point your browser to `http://a.b.c.d/?lbip=a.b.c.d` and you should
-   see the load-balancing in action. With apache set to disable client-side
-   caching, each javascript `location.href` back to the GCELB IP should
-   perform a full HTTP request (versus being served from the client's cache).
-   You should see each instance's short hostname and a Google primary color
-   as a background.
+1. If all goes well, the javascript `location.reload(true)` function should
+   be triggered onLoad and you'll see the browser flip between all four
+   instances with separate Google colors.
 
 ### Troubleshooting
 
@@ -65,6 +61,6 @@ sed -i "s|@MY_INSTANCE_NAME@|$NAME|" /var/www/index.html
 1. If your instance's background color is white and you are dynamically
    updating the `index.html` title, make sure the javascript code's
    `if-else` block is using the correct instance names for setting the page
-   background color. The default is to use `instance{1..4}` for the
+   background color. The default is to use `myinstance{1..4}` for the
    instance names.
 

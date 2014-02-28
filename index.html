@@ -49,33 +49,14 @@
   </style>
   <!--
   NOTE: When deploying this page, the title-tag must by set to one of
-  instance1, instance2, instance3, or instance4 and _should_ match the
-  short hostname of it's GCE instance. The page's background color will
-  be updated onload based on it's hostname via javascript code below,
-  lines 39-50.
+  myinstance1, myinstance2, myinstance3, or myinstance4 and _should_ match
+  the short hostname of it's GCE instance. The page's background color will
+  be updated onload based on it's hostname via javascript code below.
   -->
   <title>@MY_INSTANCE_NAME@</title>
   <script type="text/javascript">
-    // Use a query param to pass along load-balancer IP since I can't seem to access
-    // it directly from the incoming HTTP request.
-    function getParameterByName( name ){
-      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-      var regexS = "[\\?&]"+name+"=([^&#]*)", 
-      regex = new RegExp( regexS ),
-      results = regex.exec( window.location.href );
-      if( results == null ){
-        return "";
-      } else{
-        return decodeURIComponent(results[1].replace(/\+/g, " "));
-      }
-    }
-    
     // change background color depending on title and reload
     function changeBgColor() {
-
-      var ip = getParameterByName('lbip');
-      var bounce = true;
-      
       if (document.title == 'myinstance1') {
         document.body.style.backgroundColor = "#4285F4"; // blue
       } else if (document.title == 'myinstance2') {
@@ -85,13 +66,10 @@
       } else if (document.title == 'myinstance4') {
         document.body.style.backgroundColor = "#0F9D58"; // green
       } else {
-        document.body.style.backgroundColor = "white";
+        document.body.style.backgroundColor = "grey";
         bounce = false;
       }
-      // reload ourselves at the LB IP in 1/2 second
-      if (bounce && ip) {
-        setTimeout("window.location.href = 'http://"+ip+"/?lbip="+ip+"';", 500);
-      }
+      setTimeout("location.reload(true);", 500);
     }
   </script>
 </head>
