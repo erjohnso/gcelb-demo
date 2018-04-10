@@ -15,9 +15,9 @@ popd > /dev/null
 NAME=$(hostname -s)
 
 echo "=> Copying HTML files, apache2.conf, enable mod-header, and restarting"
-sudo cp $MY_PATH/index.html /var/www
-sudo sed -i "s|@MY_INSTANCE_NAME@|$NAME|" /var/www/index.html
-sudo chmod 644 /var/www/index.html
+sudo cp $MY_PATH/index.html /var/www/html/
+sudo sed -i "s|@MY_INSTANCE_NAME@|$NAME|" /var/www/html/index.html
+sudo chmod 644 /var/www/html/index.html
 sudo cp $MY_PATH/apache2.conf /etc/apache2/apache2.conf
 sudo ln -s /etc/apache2/mods-available/headers.load /etc/apache2/mods-enabled/headers.load
 sudo service apache2 restart
