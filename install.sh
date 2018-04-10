@@ -3,13 +3,14 @@
 # This is the packer install script and assumes a Debian-9 'stretch'
 # base Compute Engine image is used.
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get install apache2 -y
+ROOT=/var/www/html
+
+echo "=> Installing apache2 package"
+sudo DEBIAN_FRONTEND=noninteractive apt-get install apache2 -y >/dev/null 2>&1
 
 pushd `dirname $0` > /dev/null
 MY_PATH=`pwd`
 popd > /dev/null
-
-ROOT=/var/www/html
 
 echo "=> Copying HTML files, apache2.conf, enable mod-header, and restarting"
 sudo cp $MY_PATH/index.html $ROOT
