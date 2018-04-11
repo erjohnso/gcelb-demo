@@ -57,13 +57,14 @@
   <script type="text/javascript">
     // change background color depending on title and reload
     function changeBgColor() {
-      if (document.title == 'myinstance1') {
+      var x = Math.floor(Math.random() * 4);
+      if (x == 0) {
         document.body.style.backgroundColor = "#4285F4"; // blue
-      } else if (document.title == 'myinstance2') {
+      } else if (x == 1) {
         document.body.style.backgroundColor = "#D84437"; // red
-      } else if (document.title == 'myinstance3') {
+      } else if (x == 2) {
         document.body.style.backgroundColor = "#F4B400"; // yellow
-      } else if (document.title == 'myinstance4') {
+      } else if (x == 3) {
         document.body.style.backgroundColor = "#0F9D58"; // green
       } else {
         document.body.style.backgroundColor = "grey";
