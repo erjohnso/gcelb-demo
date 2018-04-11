@@ -3,7 +3,7 @@
 This repo is a place to park my GCELB demo code. It requires a bit of
 customization for each demo, but I've used it with Puppet and SaltStack.
 
-General idea is to create 4 GCE `Debian-7` instances, install these files
+General idea is to create 4 GCE `Debian-9` instances, install these files
 on each instance, put them behind a GCELB, and then hit the LB's public IP
 with your browser to test. The page to be fetched again (without caching)
 and will flip between the 4 instances (each with it's own Google primary
@@ -31,16 +31,18 @@ sed -i "s|@MY_INSTANCE_NAME@|$NAME|" /var/www/index.html
 ### Install
 
 1. Make sure your GCE `network` has `tcp:80` open
-1. Use some tool-specific (demo) automated way to spin up 4 `Debian-7`
+1. Use some tool-specific (demo) automated way to spin up 4 `Debian-9`
    instances, preferably two per zone in the same region.
-1. When the instances are created, install apache2 overwrite the package's
+1. When the instances are created, install apache2, overwrite the package's
    `/etc/apache2/apache2.conf` file with this custom `apache2.conf` file.
+   This config disables `Keep-Alive` and sets HTTP headers to prevent browser
+   caching.
 1. Make sure that the installation of apache also enables `mod_headers`
    (e.g. `/etc/apache2/mods-enabled`). The custom `apache2.conf` includes
    `mod_header` directives to disable client-side caching with custom
    headers (lines 264-272).
-1. Next, copy over the `index.html` and `demo.css` files to apache's root
-   directory, typically `/var/www`.
+1. Next, copy over the `index.html` file to apache's root directory,
+   typically `/var/www/html`.
 1. Create the GCELB and place all 4 instances in the GCELB's `TargetPool`.
    Set its `ForwardingRule` to forward `tcp:80` traffic to the `TargetPool`.
 
